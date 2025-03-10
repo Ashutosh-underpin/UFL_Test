@@ -88,7 +88,7 @@
 
     async function storeFileInIndexedDB(db, key, url) {
       return new Promise((resolve, reject) => {
-        console.log(`[${new Date().toISOString()}] Fetching ${key} from network: ${url}`);
+        console.log(`[${new Date().toISOString()}] Downloading ${key} from network: ${url}`);
         fetch(url)
           .then(response => response.blob())
           .then(blob => {
@@ -97,7 +97,7 @@
             const request = store.put(blob, key);
 
             request.onsuccess = () => {
-              console.log(`[${new Date().toISOString()}] Stored ${key} in IndexedDB`);
+              console.log(`[${new Date().toISOString()}] Successfully stored ${key} in IndexedDB`);
               resolve();
             };
             request.onerror = () => {
@@ -106,8 +106,8 @@
             };
           })
           .catch(error => {
-            console.error(`[${new Date().toISOString()}] Error fetching ${key}: ${error}`);
-            reject('Error fetching file: ' + error);
+            console.error(`[${new Date().toISOString()}] Error downloading ${key}: ${error}`);
+            reject('Error downloading file: ' + error);
           });
       });
     }
@@ -120,7 +120,7 @@
 
         request.onsuccess = () => {
           if (request.result) {
-            console.log(`[${new Date().toISOString()}] Retrieved ${key} from IndexedDB`);
+            console.log(`[${new Date().toISOString()}] Successfully retrieved ${key} from IndexedDB`);
           } else {
             console.log(`[${new Date().toISOString()}] ${key} not found in IndexedDB`);
           }
@@ -149,9 +149,12 @@
         const cachedFile = await getFileFromIndexedDB(db, file.key);
         if (cachedFile) {
           const objectURL = URL.createObjectURL(cachedFile);
+          console.log(`[${new Date().toISOString()}] Loading ${file.key} from IndexedDB cache`);
           loadFileIntoUnity(file.key, objectURL);
         } else {
+          console.log(`[${new Date().toISOString()}] ${file.key} not found in IndexedDB, downloading from network`);
           await storeFileInIndexedDB(db, file.key, file.url);
+          console.log(`[${new Date().toISOString()}] Loading ${file.key} from network`);
           loadFileIntoUnity(file.key, file.url);
         }
       }
