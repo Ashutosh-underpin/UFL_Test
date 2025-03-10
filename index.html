@@ -139,9 +139,9 @@
 
       const buildUrl = "Build";
       const filesToCache = [
-        { key: 'framework.js', url: buildUrl + "/Testy3.framework.js.unityweb" },
-        { key: 'data', url: buildUrl + "/Testy3.data.unityweb" },
-        { key: 'wasm', url: buildUrl + "/Testy3.wasm.unityweb" }
+        { key: 'framework.js', url: buildUrl + "/Testy4.framework.js.unityweb" },
+        { key: 'data', url: buildUrl + "/Testy4.data.unityweb" },
+        { key: 'wasm', url: buildUrl + "/Testy4.wasm.unityweb" }
       ];
 
       // Check if files are already cached in IndexedDB
@@ -161,9 +161,9 @@
 
       // Initialize Unity
       const config = {
-        dataUrl: buildUrl + "/Testy3.data.unityweb",
-        frameworkUrl: buildUrl + "/Testy3.framework.js.unityweb",
-        codeUrl: buildUrl + "/Testy3.wasm.unityweb",
+        dataUrl: buildUrl + "/Testy4.data.unityweb",
+        frameworkUrl: buildUrl + "/Testy4.framework.js.unityweb",
+        codeUrl: buildUrl + "/Testy4.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "Vikings",
@@ -171,7 +171,7 @@
       };
 
       const script = document.createElement("script");
-      script.src = buildUrl + "/Testy3.loader.js";
+      script.src = buildUrl + "/Testy4.loader.js";
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
         }).then((unityInstance) => {
